@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Tabla de Datos</title>
+</head>
+<body>
+    <h2>Tabla de Datos</h2>
+    <button id="btnRecargar">Recargar Datos</button>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>CVE Municipio</th>
+                <th>Descripción Municipio</th>
+                <th>ID Indicador</th>
+                <th>Indicador</th>
+                <th>Año</th>
+                <th>Valor</th>
+                <th>Unidad de Medida</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-body">
+            <!-- Los resultados de la API se mostrarán aquí -->
+        </tbody>
+    </table>
+    <p id="promedioValor"></p>
+    <table id="registrosRepetidos" border="1">
+        <!-- Los registros repetidos se mostrarán aquí -->
+    </table>
+    <p id="mediaAnio"></p>
+    <script src="script.js"></script>
+</body>
+</html>
