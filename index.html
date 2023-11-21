@@ -31,6 +31,96 @@
         <!-- Los registros repetidos se mostrarán aquí -->
     </table>
     <p id="mediaAnio"></p>
+
+    <div id="media-container">
+        <h2>Media de la columna 'valor'</h2>
+        <p id="media-value">Esperando resultados...</p>
+    </div>
+    
+    <script>
+        // Función para obtener datos duplicados
+        function obtenerDatosDuplicados() {
+            fetch('conexion/datos_repetidos.php', {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                mostrarDatosDuplicados(data);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Función para mostrar los datos duplicados en la tabla
+        function mostrarDatosDuplicados(duplicates) {
+            const registrosRepetidos = document.getElementById('registrosRepetidos');
+
+            if (duplicates.length === 0) {
+                registrosRepetidos.innerHTML = '<tr><td colspan="2">No se encontraron datos duplicados.</td></tr>';
+                return;
+            }
+
+            let html = '<tr><th>Indicador</th><th>Cantidad</th></tr>';
+
+            duplicates.forEach(item => {
+                html += `<tr><td>${item.indicador}</td><td>${item.cantidad}</td></tr>`;
+            });
+
+            registrosRepetidos.innerHTML = html;
+        }
+
+        // Función para obtener la media de la columna 'valor'
+        function obtenerMediaValor() {
+            fetch('conexion/media.php', {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                mostrarMediaValor(data);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Función para mostrar la media de la columna 'valor' en la página
+        function mostrarMediaValor(data) {
+            const mediaValue = document.getElementById('media-value');
+            if (data && data.media !== undefined) {
+                mediaValue.textContent = `La media es: ${data.media}`;
+            } else {
+                mediaValue.textContent = 'No se pudo obtener la media.';
+            }
+        }
+
+        // Función para obtener el promedio de la columna 'valor'
+        function obtenerPromedioValor() {
+            fetch('conexion/promedio.php', {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                mostrarPromedioValor(data);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Función para mostrar el promedio de la columna 'valor' en la página
+        function mostrarPromedioValor(data) {
+            const promedioValor = document.getElementById('promedioValor');
+            if (data && data.promedio !== undefined) {
+                promedioValor.textContent = `El promedio de año es: ${data.promedio}`;
+            } else {
+                promedioValor.textContent = 'No se pudo obtener el promedio.';
+            }
+        }
+
+        // Llamar a todas las funciones al cargar la página
+        window.onload = () => {
+            obtenerDatosDuplicados();
+            obtenerMediaValor();
+            obtenerPromedioValor();
+            // Aquí podrías agregar más funcionalidades si las necesitas
+        };
+    </script>
+    
     <script src="script.js"></script>
 </body>
 </html>
